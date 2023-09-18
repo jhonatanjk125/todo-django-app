@@ -23,5 +23,5 @@ urlpatterns = [
     path('', views.home, name='home'),
 
     # Add To do
-    path('todo/', include('todos.urls')),
+    path('todos/', include('todos.urls')),
 ]
