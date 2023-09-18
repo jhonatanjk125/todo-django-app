@@ -18,11 +18,29 @@ def markComplete(request, id):
     task.save()
     return redirect('home')
 
+
 def markUndone(request, id):
     task = get_object_or_404(Task, pk=id)
     task.is_completed = False
     task.save()
     return redirect('home')
 
+
 def editTask(request, id):
-    return render(request, 'edit_task.html')
+    task = get_object_or_404(Task, pk=id)
+    if request.method == 'POST':
+        new_task = request.POST['new_task']
+        task.task = new_task
+        task.save()
+        return redirect('home')
+    else:
+        context = {
+            'task':task
+        }
+        return render(request, 'edit_task.html', context)
+
+
+def deleteTask(request, id):
+    task = get_object_or_404(Task, pk=id)
+    task.delete()
+    return redirect('home')
